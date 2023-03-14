@@ -7,7 +7,23 @@ const app = express();
 app.post('/register', async (req, res) => {
   let newuser = new User(req.body);
   let save = await newuser.save();
+  save = save.toObject()
+  delete save.password
   res.send(save)
+})
+
+//Sign User : api/user/login
+app.post('/login', async (req, res) => {
+
+  if (req.body.email && req.body.password) {
+    let find = await User.findOne(req.body).select("-password");
+    if(!find){
+       return res.status(404).send("user not found")
+    }
+    res.send(find)
+  }else{
+    return res.status(404).send("User no found")
+  }
 })
 
 
