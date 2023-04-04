@@ -18,11 +18,11 @@ app.post('/login', async (req, res) => {
   if (req.body.email && req.body.password) {
     let find = await User.findOne(req.body).select("-password");
     if(!find){
-       return res.status(404).send("user not found")
+       return res.status(404).json({error:"user not found"})
     }
     res.send(find)
   }else{
-    return res.status(404).send("User no found")
+    return res.status(404).json({error:"user not found"})
   }
 })
 

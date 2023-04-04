@@ -13,13 +13,16 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  categorie: {
+  category: {
     type: String,
     required: true,
-    default: 'Product'
+    default: 'Product' 
+  },
+  userId : {
+    type: String,
+    required: true,
   }
-
 })
 
-const product = mongoose.model('products', productSchema);
-module.exports = product;
+const Product = mongoose.model('products', productSchema);
+module.exports = Product;
