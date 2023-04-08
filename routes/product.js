@@ -5,8 +5,11 @@ const app = express();
 //Get Product data : api/product
 app.get('/', async (req,res) => {
   let result = await Product.find();
-  console.log(result)
-  res.json(result)
+  if(result.length>0){
+    res.json(result);
+  }else{
+    res.send({error:"Product not found"}) 
+  }
 })
 
 //Add Product : api/product/add
