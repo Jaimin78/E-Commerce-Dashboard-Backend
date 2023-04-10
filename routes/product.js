@@ -2,6 +2,7 @@ const express = require('express');
 const Product = require('../models/Products')
 const app = express();
 
+
 //Get Product data : api/product
 app.get('/', async (req,res) => {
   let result = await Product.find();

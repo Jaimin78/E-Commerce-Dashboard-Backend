@@ -18,9 +18,13 @@ const productSchema = new mongoose.Schema({
     required: true,
     default: 'Product' 
   },
-  userId : {
+  userId: {
     type: String,
-    required: true,
+    required: true
+  },
+  imageUrl: {
+    type: String,
+    required: true
   }
 })
 
