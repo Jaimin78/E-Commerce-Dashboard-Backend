@@ -14,12 +14,16 @@ app.get('/', async (req,res) => {
 })
 
 //Add Product : api/product/add
-app.post('/add', async(req,res) => {
+app.post('/add', async (req,res) => {
   let product = new Product(req.body);
   let result = await product.save();
   res.send(result)
 })
 
-
+//Delete Product: api/product/delete/:id
+app.delete('/delete/:id', async (req,res) => {
+  let remove = await Product.deleteOne({_id:req.params.ireq.params.id});
+  res.send(remove);
+})
 
 module.exports = app;
