@@ -22,7 +22,7 @@ app.post('/add', async (req,res) => {
 
 //Delete Product: api/product/delete/:id
 app.delete('/delete/:id', async (req,res) => {
-  let remove = await Product.deleteOne({_id:req.params.ireq.params.id});
+  let remove = await Product.deleteOne({_id:req.params.id});
   res.send(remove);
 })
 
