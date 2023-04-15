@@ -13,6 +13,16 @@ app.get('/', async (req,res) => {
   }
 })
 
+//Get Single Product: api/product/get/:id
+app.get('/get/:id', async (req,res) =>{
+  let result = await Product.findOne({_id:req.params.id});
+  if(result){
+    res.send(result);
+  }else{
+    res.send({error:"Product not found"})
+  }
+})
+
 //Add Product : api/product/add
 app.post('/add', async (req,res) => {
   let product = new Product(req.body);
