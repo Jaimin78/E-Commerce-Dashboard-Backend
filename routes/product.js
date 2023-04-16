@@ -36,4 +36,24 @@ app.delete('/delete/:id', async (req,res) => {
   res.send(remove);
 })
 
+//Update Product: api/product/update/:id
+app.put('/update/:id', async (req,res) => {
+  let result = await Product.updateOne(
+    { _id:req.params.id },{ $set : req.body }
+  )
+  res.send(result)
+})
+
+//Product Search: api/product/search/:key
+app.get('/search/:key', async (req,res) => {
+  let search = await Product.find({
+    '$or': [
+      { name: { $regex:req.params.key }},
+      { brand: { $regex:req.params.key }},
+      { category: { $regex:req.params.key }}
+      //{ price: { $regex:req.params.key }}
+    ]
+  })
+  res.send(search)
+})
 module.exports = app;
