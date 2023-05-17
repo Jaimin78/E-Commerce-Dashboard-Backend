@@ -51,7 +51,6 @@ app.get('/search/:key', async (req,res) => {
       { name: { $regex:req.params.key }},
       { brand: { $regex:req.params.key }},
       { category: { $regex:req.params.key }}
-      //{ price: { $regex:req.params.key }}
     ]
   })
   res.send(search)

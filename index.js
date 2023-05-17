@@ -12,6 +12,10 @@ app.use(cors());
 app.use('/api/product', require('./routes/product'));
 app.use('/api/user', require('./routes/user'));
 
+app.get('/', (req,res) => {
+   res.send("<h1>Its ON</h1>")
+});
+
 app.listen(5000, () => {
   console.log("Server is live")
 })
