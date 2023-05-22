@@ -1,10 +1,11 @@
 const express = require('express');
-const Product = require('../models/Products')
+const Product = require('../models/Products');
+const tokenVerification = require('../middleware/tokenVerification');
 const app = express();
 
 
 //Get Product data : api/product
-app.get('/', async (req,res) => {
+app.get('/', tokenVerification, async (req,res) => {
   let result = await Product.find();
   if(result.length>0){
     res.json(result);
@@ -14,7 +15,7 @@ app.get('/', async (req,res) => {
 })
 
 //Get Single Product: api/product/get/:id
-app.get('/get/:id', async (req,res) =>{
+app.get('/get/:id', tokenVerification, async (req,res) =>{
   let result = await Product.findOne({_id:req.params.id});
   if(result){
     res.send(result);
@@ -24,20 +25,20 @@ app.get('/get/:id', async (req,res) =>{
 })
 
 //Add Product : api/product/add
-app.post('/add', async (req,res) => {
+app.post('/add', tokenVerification, async (req,res) => {
   let product = new Product(req.body);
   let result = await product.save();
   res.send(result)
 })
 
 //Delete Product: api/product/delete/:id
-app.delete('/delete/:id', async (req,res) => {
+app.delete('/delete/:id', tokenVerification, async (req,res) => {
   let remove = await Product.deleteOne({_id:req.params.id});
   res.send(remove);
 })
 
 //Update Product: api/product/update/:id
-app.put('/update/:id', async (req,res) => {
+app.put('/update/:id', tokenVerification, async (req,res) => {
   let result = await Product.updateOne(
     { _id:req.params.id },{ $set : req.body }
   )
@@ -45,7 +46,7 @@ app.put('/update/:id', async (req,res) => {
 })
 
 //Product Search: api/product/search/:key
-app.get('/search/:key', async (req,res) => {
+app.get('/search/:key', tokenVerification, async (req,res) => {
   let search = await Product.find({
     '$or': [
       { name: { $regex:req.params.key }},
